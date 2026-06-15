@@ -6,9 +6,8 @@ Introduce Vision Mamba (Vim) as a state-of-the-art State Space Model (SSM) basel
 ## Progress Log
 
 ### [Completed] Step 1: Workspace & Environment Initialization
-* **File:** `ksd1_12_mamba_real.ipynb`
-* **Action:** Successfully mapped Google Colab to the local Windows Drive structure (`O:\My Drive\papers\Sabbir\...`).
-* **Result:** Verified workspace paths and extracted the clean Real Dataset (`ksd1_dataset_70_15_15_uniqueValTest_BALANCED_v2.zip`) into Colab's fast local runtime (`/content/ksd1_split_real`). Train, Val, and Test splits perfectly preserved containing `stone` and `normal` classes.
+* Verified workspace paths and extracted clean Real Dataset into Colab local runtime.
 
-### [Pending] Step 2: Pure PyTorch Mamba Architecture & Training
-* **Goal:** Implement a CUDA-independent Mamba block to avoid Colab compilation errors, configure data loaders, train on the Real dataset for 15 epochs, and evaluate.
+### [In Progress] Step 2: Pure PyTorch Mamba Architecture & Training
+* **Hurdle:** CUDA OOM Error encountered at batch_size=32 due to Pure PyTorch sequential graph retention.
+* **Fix:** Implemented Gradient Accumulation (micro-batch=4, accumulation_steps=8) to maintain an effective batch size of 32 while keeping maximum memory usage well below the 15GB T4 limit.
